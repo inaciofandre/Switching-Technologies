@@ -1,0 +1,30 @@
+**S1
+en
+config t
+hostname S1
+int range f0/1-2
+switchport mode access 
+switchport port-security 
+switchport port-security maximum 1
+switchport port-security mac-address sticky
+switchport port-security violation shutdown
+exit
+
+int range f0/3-4
+switchport mode access 
+switchport port-security 
+switchport port-security maximum 2
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+exit
+
+int f0/5
+switchport mode access 
+switchport port-security 
+switchport port-security maximum 1
+switchport port-security mac-address 0003.E499.2D94
+switchport port-security violation protect
+exit
+
+do show port-security 
+
