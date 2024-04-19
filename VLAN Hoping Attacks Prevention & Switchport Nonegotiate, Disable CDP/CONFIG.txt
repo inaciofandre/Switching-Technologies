@@ -1,0 +1,68 @@
+**S1
+en 
+config t
+hostname S1
+vlan 10 
+name IT-Dept
+exit 
+vlan 50
+name NATIVE
+exit 
+int range f0/1-20, g0/1-2
+switchport mode access
+switchport access vlan 10
+switchport nonegotiate
+exit
+int range f0/21-24
+switchport mode trunk 
+switchport trunk native vlan 50
+switchport nonegotiate
+exit
+no cdp run
+do wr
+
+**S2
+en 
+config t
+hostname S2
+vlan 20 
+name FIN-Dept
+exit 
+vlan 50
+name NATIVE
+exit
+int range f0/1-20, g0/1-2
+switchport mode access
+switchport access vlan 20
+switchport nonegotiate
+exit
+int range f0/21-24
+switchport mode trunk 
+switchport trunk native vlan 50
+switchport nonegotiate
+exit
+no cdp run
+do wr
+
+**S3
+en 
+config t
+hostname S3
+vlan 30 
+name ACC-Dept
+exit 
+vlan 50
+name NATIVE
+exit
+int range f0/1-20, g0/1-2
+switchport mode access
+switchport access vlan 30
+switchport nonegotiate
+exit
+int range f0/21-24
+switchport mode trunk 
+switchport trunk native vlan 50
+switchport nonegotiate
+exit
+no cdp run
+do wr
