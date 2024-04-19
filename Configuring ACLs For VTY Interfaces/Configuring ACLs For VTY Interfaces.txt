@@ -1,0 +1,64 @@
+**S1
+en 
+config t
+hostname S1
+int vlan 1
+ip add 192.168.20.254 255.255.255.0
+no shut 
+exit
+
+ip default-gateway 192.168.20.1
+enable secret cisco
+ip domain-name cisco.com
+username cisco secret cisco
+banner motd #Unauthorized Access is Prohibited#
+crypto key generate rsa 1024
+
+line vty 0 15
+login local 
+transport input ssh
+exit
+ip ssh version 2
+
+access-list 10 permit host 192.168.10.5
+access-list 10 deny any
+line vty 0 15
+access-class 10 in
+exit
+
+**R1
+en 
+config t
+hostname R1
+int g0/0
+ip add 192.168.20.1 255.255.255.0
+no shut 
+exit
+int g0/1
+ip add 192.168.10.1 255.255.255.0
+no shut 
+exit
+do wr
+
+**SysAdmin-PC
+ip address: 192.168.10.5
+subnet mask: 255.255.255.0
+default gateway: 192.168.10.1
+
+
+**PC0
+ip address: 192.168.20.5
+subnet mask: 255.255.255.0
+default gateway: 192.168.20.1
+
+**PC1
+ip address: 192.168.20.6
+subnet mask: 255.255.255.0
+default gateway: 192.168.20.1
+
+**PC2
+ip address: 192.168.20.7
+subnet mask: 255.255.255.0
+default gateway: 192.168.20.1
+
+
